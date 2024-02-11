@@ -3,6 +3,7 @@ At the command line, only need to run once to install the package via pip:
 
 $ pip install google-generativeai
 """
+import json
 
 import google.generativeai as genai
 
@@ -51,6 +52,6 @@ def generate_details(data):
             print(e)
             return 'Failed to generate flight details'
 
-    flights_details = response.text
+    flights_details = json.loads(response.text)
     
     return flights_details
