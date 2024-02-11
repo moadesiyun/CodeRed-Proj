@@ -49,5 +49,10 @@ def generate_details(data):
             return 'Failed to generate flight details'
 
     flights_details = response.text
-    
-    return flights_details
+    flights_details = response.text
+    firstValue = flights_details.index("{")
+    lastValue = len(flights_details) - flights_details[::-1].index("}")
+    jsonString = flights_details[firstValue:lastValue]
+        
+    return jsonString
+print(generate_details(data))
