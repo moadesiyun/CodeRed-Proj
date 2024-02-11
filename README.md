@@ -26,6 +26,17 @@ export GOOGLE_API_KEY=<your api key> # you will probably need to do this every t
 ```
 
 ### Without Nix
+1. Clone this repo:
+```shell
+git clone https://github.com/moadesiyun/CodeRed-Proj.git
+```
+
+1. Create and activate virtual environment:
+```
+cd CodeRed-Proj
+python -m venv .venv
+source .venv/bin/activate
+```
 
 1. Install dependencies:
 ```shell
@@ -46,5 +57,5 @@ python main.py
 
 - Gemini:
 ```shell
-python gemini-agent/__pycache__/basic.py
+python web/generator.py
 ```
