@@ -1,12 +1,35 @@
-{% extends "index.html" %} {% block title %}Home{% endblock %} {% block
-content%}
-<h1 align="center">Resutls</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh FLights</title>
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" href="/">Home</a>
+      <a class="active" href="/results">Results</a>
+    </div>
 
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
-{% endblock %}
+    <img class="logo" src="/static/planelogo.jpg" height="100" , width="100" />
+
+    <div class="title">FRESH FLIGHTS/div>
+
+    <div class="deets">
+      <h1>Flight Search Results</h1>
+
+      <h2>Generated Flight Details:</h2>
+      <div id="generatedDetails">{{ generated_text }}</div>
+
+      <h2>Search Results:</h2>
+      <div id="searchResults">
+          <ul>
+              {% for flight in flights %}
+              <li>Origin: {{ flight.origin }}, Destination: {{ flight.destination }}, Price: {{ flight.price }}</li>
+              {% endfor %}
+          </ul>
+      </div>
+    </div>
+  </body>
+</html>

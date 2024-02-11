@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="static/style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}lights Application{% endblock %}</title>
+    <title>Fresh FLights</title>
   </head>
   <body>
     <div class="topnav">
@@ -14,21 +14,18 @@
 
     <img class="logo" src="/static/planelogo.jpg" height="100" , width="100" />
 
-    <div class="title">CHEAP FLIGHTS</div>
+    <div class="title">FRESH FLIGHTS/div>
 
     <div class="question"><p>Where would you like to fly?</p></div>
 
-    {% if query %}
-    <div>{{ query }}</div>
-    {% else %}
     <div>
-      <form method="POST">
+      <form id="flightForm" action="/results" method="POST">
         <input class="box" type="text" name="userQuery" id="userQuery" />
-        <input class="submit" type="submit" value="Query" />
+        <button type="button" >Search Flights</button>
       </form>
     </div>
-    {% endif %}
 
-    <div class="container">{% block content %} {% endblock %}</div>
+
+    <div class="container"></div>
   </body>
 </html>
