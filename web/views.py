@@ -47,6 +47,7 @@ def flight_offers(flight_details):
         #     kwargs['returnDate'] = return_date
         address = 'https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode='+str(origin)+'&destinationLocationCode='+str(destination)+"&departureDate="+str(departure_date)+'&adults=1&nonStop=false&max=250'
         res = requests.get(address, headers=headers)
+        print(res)
         offers = res.json()['data']
         
         print(offers)
