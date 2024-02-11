@@ -2,16 +2,15 @@ from flask import Flask, Blueprint, render_template, flash, redirect, jsonify, r
 from .generator import generate_details
 import json
 import ast
-from amadeus import Client, ResponseError, Location
-from .flight import Flight
-from .metrics import Metrics
+from amadeus import Client, ResponseError
 from flask import send_file
+import requests
+
 #contains the paths to access the different html pages 
 # will controls post and get requests from and to db
+token = 'Q3dkI8EVw7XP0PORdOAmUpjPSuGU'
+headers={'Authorization': 'Bearer' + token}
 
-
-amadeus = Client(client_id='zJhguCjQLJlGA7M2ef1aCLhxOoti9XvA',
-    client_secret='ciW4srtGiBlt00D1')
 
 views = Blueprint('home', __name__)
 
@@ -19,71 +18,45 @@ views = Blueprint('home', __name__)
 def home():
     return render_template("index.html")
 
-@views.route('/results', methods=['POST'])
+@views.route('/results')
 def results():
+    return render_template("results.html")
+
+@views.route('/', methods=['POST'])
+def fly():
     if request.method == 'POST': 
         data = request.form.get('userQuery')
-        generated_text = generate_details(data)
-        flights = flight_offers(generated_text)
-        return render_template('results.html', generated_text=generated_text, flights=flights)
+        flight_details = generate_details(data)
+        flights = flight_offers(flight_details)  
+        return render_template('results.html', flights=flights)
 
 
 def flight_offers(flight_details):
-    origin = flight_details.get('Origin')
-    destination = flight_details.get('Destination')
-    departure_date = flight_details.get('Departuredate')
-    return_date = flight_details.get('Returndate')
-
-    kwargs = {'originLocationCode': origin,
-            'destinationLocationCode': destination,
-            'departureDate': departure_date,
-            'adults': 1
-            }
-
-    kwargs_metrics = {'originIataCode': origin,
-                    'destinationIataCode': destination,
-                    'departureDate': departure_date
-                    }
-    trip_purpose = ''
     try:
-        if return_date:
-            kwargs['returnDate'] = return_date
-            kwargs_trip_purpose = {'originLocationCode': origin,
-                                'destinationLocationCode': destination,
-                                'departureDate': departure_date,
-                                'returnDate': return_date
-                                }
+        origin = flight_details.get('Origin')
+        destination = flight_details.get('Destination')
+        departure_date = flight_details.get('Departuredate')
+        return_date = flight_details.get('Returndate')
+        
+        kwargs = {'originLocationCode': origin,
+                'destinationLocationCode': destination,
+                'departureDate': departure_date,
+                'adults': 1
+                }
+        # if return_date:
+        #     kwargs['returnDate'] = return_date
+        address = 'https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode='+str(origin)+'&destinationLocationCode='+str(destination)+"&departureDate="+str(departure_date)+'&adults=1&nonStop=false&max=250'
+        res = requests.get(address, headers=headers)
+        offers = res.json()['data']
+        
+        print(offers)
+        return offers
+        
+    except ResponseError as e:
+        print(e)
+        return []  
 
-            trip_purpose = get_trip_purpose(**kwargs_trip_purpose)
-        else:
-            kwargs_metrics['oneWay'] = 'true'
-
-        if origin and destination and departure_date:
-            flight_offers = get_flight_offers(**kwargs)
-            metrics = get_flight_price_metrics(**kwargs_metrics)
-            cheapest_flight = get_cheapest_flight_price(flight_offers)
-            is_good_deal = ''
-            if metrics is not None:
-                is_good_deal = rank_cheapest_flight(cheapest_flight, metrics['first'], metrics['third'])
-                is_cheapest_flight_out_of_range(cheapest_flight, metrics)
-
-            total = {'flight_offers': flight_offers,
-                    'origin': origin,
-                    'destination': destination,
-                    'departure_date': departure_date,
-                    'return_date': return_date,
-                    'trip_purpose': trip_purpose,
-                    'metrics': metrics,
-                    'cheapest_flight': cheapest_flight,
-                    'is_good_deal': is_good_deal
-                    }
-            
-            return flight_offers
-    except ResponseError as error:
-        flash(error.response.result['errors'][0]['detail'], category='error')
-    return total
-
-
+""""
 def get_flight_offers(**kwargs):
     search_flights = amadeus.shopping.flight_offers_search.get(**kwargs)
     flight_offers = []
@@ -128,7 +101,7 @@ def is_cheapest_flight_out_of_range(cheapest_flight_price, metrics):
         metrics['min'] = cheapest_flight_price
     elif cheapest_flight_price_to_number > max_price:
         metrics['max'] = cheapest_flight_price
-"""
+
 @views.route('/', methods=['GET', 'POST'])
 def origin_airport_search():
     if request.is_xhr():
@@ -150,7 +123,7 @@ def destination_airport_search():
         except ResponseError as error:
             flash(error.response.result['errors'][0]['detail'], category='error')
             return jsonify([])
-"""
+
 
 def get_city_airport_list(data):
     result = []
@@ -160,3 +133,4 @@ def get_city_airport_list(data):
     return result
 
 
+"""

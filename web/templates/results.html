@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="static/style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fresh FLights</title>
+    <title>First Flights</title>
   </head>
   <body>
     <div class="topnav">
@@ -14,21 +14,16 @@
 
     <img class="logo" src="/static/planelogo.jpg" height="100" , width="100" />
 
-    <div class="title">FRESH FLIGHTS/div>
+    <div class="title">FIRST FLIGHTS</div>
 
     <div class="deets">
-      <h1>Flight Search Results</h1>
+      <h3>Flight Search Results</h3>
 
-      <h2>Generated Flight Details:</h2>
-      <div id="generatedDetails">{{ generated_text }}</div>
-
-      <h2>Search Results:</h2>
       <div id="searchResults">
-          <ul>
-              {% for flight in flights %}
-              <li>Origin: {{ flight.origin }}, Destination: {{ flight.destination }}, Price: {{ flight.price }}</li>
-              {% endfor %}
-          </ul>
+        <ul>
+          {% if flights %} {{flights}} {%else%}
+          <p>Cannot generate Flight list.Try again later.{% endif %}</p>
+        </ul>
       </div>
     </div>
   </body>

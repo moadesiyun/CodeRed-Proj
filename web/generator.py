@@ -35,15 +35,13 @@ safety_settings = [
     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
   },
 ]
-
-data = input()
 def generate_details(data):
     model = genai.GenerativeModel(model_name="gemini-pro",
                                 generation_config=generation_config,
                                 safety_settings=safety_settings)
 
     prompt_parts = [
-    "Create Json of flight data based on a sentence. Fields should include \"departure_airport\", \"arrival_airport\", \"departure_date\",\"arrival_date\". Date should be formatted as MM/DD/YYYY.\n",
+    "Create Json of flight data based on a sentence. Fields should include \"Origin\", \"Destination\", \"Departuredate\",\"Returndate\". Date should be formatted as YYYY/MM/DD.\n",
     ]
 
     line = data
@@ -58,6 +56,6 @@ def generate_details(data):
     firstValue = flights_details.index("{")
     lastValue = len(flights_details) - flights_details[::-1].index("}")
     jsonString = flights_details[firstValue:lastValue]
+    res = json.loads(jsonString)
         
-    return jsonString
-print(generate_details(data))
+    return res
