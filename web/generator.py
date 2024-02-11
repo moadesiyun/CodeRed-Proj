@@ -35,6 +35,8 @@ safety_settings = [
     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
   },
 ]
+
+data = input()
 def generate_details(data):
     model = genai.GenerativeModel(model_name="gemini-pro",
                                 generation_config=generation_config,
@@ -52,6 +54,10 @@ def generate_details(data):
             print(e)
             return 'Failed to generate flight details'
 
-    flights_details = json.loads(response.text)
-    
-    return flights_details
+    flights_details = response.text
+    firstValue = flights_details.index("{")
+    lastValue = len(flights_details) - flights_details[::-1].index("}")
+    jsonString = flights_details[firstValue:lastValue]
+        
+    return jsonString
+print(generate_details(data))

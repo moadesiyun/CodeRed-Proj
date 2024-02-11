@@ -19,7 +19,7 @@ views = Blueprint('home', __name__)
 def home():
     return render_template("index.html")
 
-@views.route('/results', methods=['GET', 'POST'])
+@views.route('/results', methods=['POST'])
 def results():
     if request.method == 'POST': 
         data = request.form.get('userQuery')
