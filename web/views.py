@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, flash, redirect, jsonify, request
-from ..gem import basic
+from .generator import generate_details
 import json
 import ast
 from amadeus import Client, ResponseError, Location
@@ -23,7 +23,7 @@ def home():
 def results():
     if request.method == 'POST': 
         data = request.form.get('userQuery')
-        generated_text = basic.generate_details(data)
+        generated_text = generate_details(data)
         flights = flight_offers(generated_text)
         return render_template('results.html', generated_text=generated_text, flights=flights)
 
