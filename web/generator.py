@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-"""
-At the command line, only need to run once to install the package via pip:
-
-$ pip install google-generativeai
-"""
 import json
-
-=======
->>>>>>> a87188df7fa5f540b5e346379547434dcd0b2a00
 import google.generativeai as genai
 import os
 
