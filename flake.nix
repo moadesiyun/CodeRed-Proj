@@ -12,7 +12,12 @@
     in {
       devShells.default = with pkgs; mkShell {
         buildInputs = [
-          (python3.withPackages(ps: with ps; [ google-generativeai flask ]))
+          (python3.withPackages(ps: with ps; [
+            google-generativeai
+            flask
+          ]))
+
+          curl
         ];
       };
     }

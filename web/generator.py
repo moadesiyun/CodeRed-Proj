@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 At the command line, only need to run once to install the package via pip:
 
@@ -5,9 +6,14 @@ $ pip install google-generativeai
 """
 import json
 
+=======
+>>>>>>> a87188df7fa5f540b5e346379547434dcd0b2a00
 import google.generativeai as genai
+import os
 
-genai.configure(api_key="AIzaSyCdU5Lt7WN-SrF3Rpx0OX4FDCF5PKhJxD4")
+GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
+
+genai.configure(api_key=GOOGLE_API_KEY)
 
 # Set up the model
 generation_config = {
@@ -56,6 +62,12 @@ def generate_details(data):
     firstValue = flights_details.index("{")
     lastValue = len(flights_details) - flights_details[::-1].index("}")
     jsonString = flights_details[firstValue:lastValue]
+<<<<<<< HEAD
     res = json.loads(jsonString)
         
     return res
+=======
+        
+    return jsonString
+print(generate_details(data))
+>>>>>>> a87188df7fa5f540b5e346379547434dcd0b2a00
