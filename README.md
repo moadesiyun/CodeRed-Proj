@@ -31,19 +31,19 @@ export GOOGLE_API_KEY=<your api key> # you will probably need to do this every t
 git clone https://github.com/moadesiyun/CodeRed-Proj.git
 ```
 
-1. Create and activate virtual environment:
+2. Create and activate virtual environment:
 ```
 cd CodeRed-Proj
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-1. Install dependencies:
+3. Install dependencies:
 ```shell
 pip install -r requirements.txt
 ```
 
-2. Create an environment variable named `GOOGLE_API_KEY` containing your [Google API key](https://makersuite.google.com/app/apikey).
+4. Create an environment variable named `GOOGLE_API_KEY` containing your [Google API key](https://makersuite.google.com/app/apikey).
 ```shell
 export GOOGLE_API_KEY=<your api key> # you will probably need to do this every time you reopen your terminal
 ```
