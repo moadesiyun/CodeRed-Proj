@@ -13,10 +13,16 @@
 ```shell
 git clone https://github.com/moadesiyun/CodeRed-Proj.git
 ```
+
 3. Enter the development shell:
 ```shell
 cd CodeRed-Proj
 nix develop
+```
+
+4. Create an environment variable named `GOOGLE_API_KEY` containing your [Google API key](https://makersuite.google.com/app/apikey).
+```shell
+export GOOGLE_API_KEY=<your api key> # you will probably need to do this every time you reopen your terminal
 ```
 
 ### Without Nix
@@ -24,6 +30,11 @@ nix develop
 1. Install dependencies:
 ```shell
 pip install -r requirements.txt
+```
+
+2. Create an environment variable named `GOOGLE_API_KEY` containing your [Google API key](https://makersuite.google.com/app/apikey).
+```shell
+export GOOGLE_API_KEY=<your api key> # you will probably need to do this every time you reopen your terminal
 ```
 
 ### Testing
@@ -35,5 +46,5 @@ python main.py
 
 - Gemini:
 ```shell
-python basic.py
+python gemini-agent/__pycache__/basic.py
 ```
