@@ -8,7 +8,7 @@ import requests
 
 #contains the paths to access the different html pages 
 # will controls post and get requests from and to db
-token = 'Q3dkI8EVw7XP0PORdOAmUpjPSuGU'
+token = 'AMADEUS_AGENT_TOKEN'
 headers={'Authorization': 'Bearer' + token}
 
 
