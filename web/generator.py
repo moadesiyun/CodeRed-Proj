@@ -4,7 +4,7 @@ import os
 
 
 
-genai.configure(api_key="AIzaSyCdU5Lt7WN-SrF3Rpx0OX4FDCF5PKhJxD4")
+genai.configure(api_key="SECRET_API_KEY")
 
 # Set up the model
 generation_config = {
