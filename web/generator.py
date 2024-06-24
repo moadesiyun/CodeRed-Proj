@@ -2,9 +2,9 @@ import json
 import google.generativeai as genai
 import os
 
-GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
 
-genai.configure(api_key=GOOGLE_API_KEY)
+
+genai.configure(api_key="AIzaSyCdU5Lt7WN-SrF3Rpx0OX4FDCF5PKhJxD4")
 
 # Set up the model
 generation_config = {
@@ -38,7 +38,7 @@ def generate_details(data):
                                 safety_settings=safety_settings)
 
     prompt_parts = [
-    "Create Json of flight data based on a sentence. Fields should include \"Origin\", \"Destination\", \"Departuredate\",\"Returndate\". Date should be formatted as YYYY/MM/DD.\n",
+    "Create Json of flight data based on a sentence. Fields should include \"Origin\", \"Destination\", \"Departuredate\",\"Returndate\". Date should be formatted as YYYY-MM-DD.\n",
     ]
 
     line = data
@@ -49,16 +49,11 @@ def generate_details(data):
             print(e)
             return 'Failed to generate flight details'
 
-    flights_details = response.text
-    firstValue = flights_details.index("{")
-    lastValue = len(flights_details) - flights_details[::-1].index("}")
-    jsonString = flights_details[firstValue:lastValue]
-<<<<<<< HEAD
-    res = json.loads(jsonString)
+    jsonString = response.text
+    firstValue = jsonString.index("{")
+    lastValue = len(jsonString) - jsonString[::-1].index("}")
+    jsonStringEncoded = jsonString[firstValue:lastValue]
+    res = json.loads(jsonStringEncoded)
         
     return res
-=======
-        
-    return jsonString
-print(generate_details(data))
->>>>>>> a87188df7fa5f540b5e346379547434dcd0b2a00
+  
