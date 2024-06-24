@@ -7,6 +7,7 @@ import requests
 from .flight import Flight
 from amadeus import Client, ResponseError
 
+##api setup for flights data
 amadeus = Client(
     client_id='CLIENT_API_KEY',
     client_secret='CLIENT_SECRET'
@@ -14,15 +15,16 @@ amadeus = Client(
 
 
 views = Blueprint('home', __name__)
-
+##renders homepage
 @views.route('/')
 def home():
     return render_template("index.html")
-
+#renders flight results page
 @views.route('/results')
 def results():
     return render_template("results.html")
-
+    
+##calls function using open ai generative ai tools to perform NLP of user input
 @views.route('/', methods=['POST'])
 def fly():
     if request.method == 'POST': 
@@ -33,8 +35,8 @@ def fly():
         if flights != []:
             return render_template('results.html', flights=flights)
     return render_template('results.html')
-    
 
+##calls amadeus api to return the available flights given a valid user prompt
 def flight_offers(flight_details):
 
     origin = flight_details.get('Origin')
