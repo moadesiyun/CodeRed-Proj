@@ -38,7 +38,7 @@ def generate_details(data):
                                 safety_settings=safety_settings)
 
     prompt_parts = [
-    "Create Json of flight data based on a sentence. Fields should include \"Origin\", \"Destination\", \"Departuredate\",\"Returndate\". Date should be formatted as YYYY-MM-DD.\n",
+    "Create Json of flight data based on a sentence. Fields should include \"Origin\", \"Destination\", \"DepartureDate\",\"ReturnDate\". Date should be formatted as YYYY-MM-DD.\n",
     ]
 
     line = data
