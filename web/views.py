@@ -24,7 +24,7 @@ def home():
 def results():
     return render_template("results.html")
     
-##calls function using open ai generative ai tools to perform NLP of user input
+##calls function using google gemini generative ai tools to perform NLP of user input
 @views.route('/', methods=['POST'])
 def fly():
     if request.method == 'POST': 
