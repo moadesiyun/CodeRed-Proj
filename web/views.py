@@ -8,12 +8,10 @@ from .flight import Flight
 from amadeus import Client, ResponseError
 
 amadeus = Client(
-    client_id='D8Hvx5G6n69b9S5lIG2v9OKe6kMEyA5W',
-    client_secret='A42ICQFWlG4YGmGy'
+    client_id='CLIENT_API_KEY',
+    client_secret='CLIENT_SECRET'
 )
 
-API_KEY = 'D8Hvx5G6n69b9S5lIG2v9OKe6kMEyA5W'
-API_URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
 
 views = Blueprint('home', __name__)
 
