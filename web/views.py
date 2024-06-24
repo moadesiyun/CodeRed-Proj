@@ -15,12 +15,6 @@ amadeus = Client(
 API_KEY = 'D8Hvx5G6n69b9S5lIG2v9OKe6kMEyA5W'
 API_URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
 
-#contains the paths to access the different html pages 
-# will controls post and get requests from and to db
-token = 'AMADEUS_AGENT_TOKEN'
-headers={'Authorization': 'Bearer' + token}
-
-
 views = Blueprint('home', __name__)
 
 @views.route('/')
