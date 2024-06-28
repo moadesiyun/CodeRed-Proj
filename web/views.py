@@ -31,9 +31,11 @@ def fly():
         data = request.form.get('userQuery')
         flight_details = generate_details(data)
         print(flight_details)
-        flights = flight_offers(flight_details)  
+        flights, route = flight_offers(flight_details)  
         if flights != []:
-            return render_template('results.html', flights=flights)
+            print(flights[0])
+            return render_template('results.html', flights=flights, route = route)
+        
     return render_template('results.html')
     
 
@@ -41,24 +43,24 @@ def flight_offers(flight_details):
 
     origin = flight_details.get('Origin')
     destination = flight_details.get('Destination')
-    departure_date = flight_details.get('DepartureDate')
-    return_date = flight_details.get('ReturnDate')
+    departure_date , return_date = '', ''
+    if flight_details.get('Departuredate'):
+        departure_date = flight_details.get('Departuredate') 
+        return_date = flight_details.get('Returndate')
+    else:
+        departure_date = flight_details.get('DepartureDate') 
+        return_date = flight_details.get('ReturnDate')
     
     params = {
     'originLocationCode': origin,
     'destinationLocationCode': destination,
     'departureDate': departure_date,
     'currencyCode': 'USD',
-    'adults': 1,
-    'max': 10,  # Maximum number of flight offers to return
+    'adults': 1# Maximum number of flight offers to return
     }
     if return_date:
         params["returnDate"] = return_date
-        
-    headers = {
-        'Authorization': f'Bearer {API_KEY}',
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    path = params
     print(origin," ",destination,' ',departure_date)
     returned_flights = []
     if origin and destination and departure_date:
@@ -71,6 +73,6 @@ def flight_offers(flight_details):
         for flight in search_flights.data:
             offer = Flight(flight).construct_flights()
             returned_flights.append(offer)
-    
-        return returned_flights
-    return []
+        
+        return returned_flights, path
+    return [], path

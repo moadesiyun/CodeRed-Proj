@@ -16,19 +16,47 @@
     <div class="title">FIRST FLIGHTS</div>
 
     <div class="deets">
-      <h3>Flight Search Results</h3>
+      <h2>Flight Search Results</h2>
 
-      <div id="searchResults">
-        {% if flights %}
-        <ul>
+      <div id="results-container">
+        {% if flights %} 
           {% for flight in flights %}
-          <li>{{ flight }}</li>
+            {% if flight['0firstFlightDepartureAirport']%}
+              <div class="flight-card">
+                <p style="font-size: 26;">Total Price: <span style="color: darkred;">${{flight['price']}}</span></p>
+                <p class="finfo"><span class="bld">Departure</span> Total duration {{ flight['0FlightTotalDuration']}}</p>
+                <div class="pline"><img style="vertical-align:middle" src={{ flight['0firstFlightAirlineLogo']}} alt={{ flight['0firstFlightAirline']}}><span style="font-weight: bold;">   {{ flight['0firstFlightDepartureDate']}} {{ flight['0firstFlightDepartureAirport']}}
+                  <a href="#" class="nounderline" title={{ flight['0firstFlightArrivalDuration']}} duration>&#10230</a> {{ flight['0firstFlightArrivalAirport']}} {{ flight['0firstFlightArrivalDate']}}</span>
+                </div>
+                {% if flight['0secondFlightDepartureAirport'] %}
+                    <p class="finfo">Connection duration is {{ flight['0stop_time']}}</p>
+                    <div class="pline"><img style="vertical-align:middle" src={{ flight['0secondFlightAirlineLogo']}} alt={{ flight['0secondFlightAirline']}}><span style="font-weight: bold;">   {{ flight['0secondFlightDepartureDate']}} {{ flight['0secondFlightDepartureAirport']}}
+                      <a href="#" class="nounderline" title={{ flight['0secondFlightArrivalDuration']}} duration>&#10230</a> {{ flight['0secondFlightArrivalAirport']}} {{ flight['0secondFlightArrivalDate']}}</span>
+                    </div>
+                {% endif %}
+                {% if flight['1firstFlightDepartureAirport'] %}
+                <hr class="newstyle">
+                <p class="finfo"><span class="bld">Return </span> Total duration {{ flight['1FlightTotalDuration']}}</p>
+                <div class="pline"><img style="vertical-align:middle" src={{ flight['1firstFlightAirlineLogo']}} alt={{ flight['1firstFlightAirline']}}><span style="font-weight: bold;">   {{ flight['1firstFlightDepartureDate']}} {{ flight['1firstFlightDepartureAirport']}}
+                  <a href="#" class="nounderline" title={{ flight['1firstFlightArrivalDuration']}} duration>&#10230</a> {{ flight['1firstFlightArrivalAirport']}} {{ flight['1firstFlightArrivalDate']}}</span>
+                </div>
+                  {% if flight['1secondFlightDepartureAirport'] %}
+                      <p class="finfo">Connection duration is {{ flight['1stop_time']}}</p>
+                      <div class="pline"><img style="vertical-align:middle" src={{ flight['1secondFlightAirlineLogo']}} alt={{ flight['1secondFlightAirline']}}><span style="font-weight: bold;">   {{ flight['1secondFlightDepartureDate']}} {{ flight['1secondFlightDepartureAirport']}}
+                        <a href="#" class="nounderline" title={{ flight['1secondFlightArrivalDuration']}} duration>&#10230</a> {{ flight['1secondFlightArrivalAirport']}} {{ flight['1secondFlightArrivalDate']}}</span>
+                      </div>
+                  {% endif %}
+                {% endif %}
+              </div>  
+            {% endif %}
           {% endfor %}
-        </ul>
-        {%else%}
-        <p>Cannot generate Flight list. Try again later.</p>
-        {% endif %}
+        {% else %}
+          <h4>No flights found for this itinerary</h4>
+        {% endif %} 
       </div>
+        
+      
+    </div>     
     </div>
   </body>
 </html>
