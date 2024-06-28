@@ -54,6 +54,5 @@ def generate_details(data):
     lastValue = len(jsonString) - jsonString[::-1].index("}")
     jsonStringEncoded = jsonString[firstValue:lastValue]
     res = json.loads(jsonStringEncoded)
-    print(res)
     return res
   
